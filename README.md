@@ -9,6 +9,14 @@ Starts a Minecraft server. Technically not necessary as this command can be adde
 
 Runs once in a crontab to warn users that the server is coming down. Also add in the top level of your Minecraft server folder for convenience.
 
+I added this because I have a crontab that restarts my server every night. I wanted to give users ample time to log out without being randomly disconnected by a reboot.
+
+For reference, the crontab looks like this:
+
+```bash
+# m h  dom mon dow   command
+20 2 * * * /bin/bash /srv/minecraft-server/warn.sh
+```
 
 ### versioncheck/run.sh and the versioncheck/version file
 
