@@ -1,0 +1,13 @@
+[Unit]
+Description=Minecraft Server
+
+[Service]
+WorkingDirectory=/srv/minecraft-server
+User=ubuntu
+Restart=on-failure
+RestartSec=20s
+ExecStart=/usr/bin/bash start.sh
+Type=forking
+
+[Install]
+WantedBy=multi-user.target
