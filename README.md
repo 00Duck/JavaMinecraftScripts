@@ -16,6 +16,7 @@ For reference, the crontab looks like this:
 ```bash
 # m h  dom mon dow   command
 20 2 * * * /bin/bash /srv/minecraft-server/warn.sh
+30 2 * * * systemctl stop mcserver && /usr/sbin/reboot
 ```
 
 ### versioncheck/run.sh and the versioncheck/version file
