@@ -1,5 +1,21 @@
-# JavaMinecraftScripts
-Scripts to start a Java Minecraft server using screen, warn users of impending shutdown (10 minute countdown), and automatically check for new versions of Minecraft Server.
+# QuickMC
+
+Quickly set up and start a Vanilla Minecraft server.
+
+# INSTALLATION
+
+```bash
+/bin/bash -c $(curl -L https://raw.githubusercontent.com/00Duck/JavaMinecraftScripts/main/install.sh)
+```
+
+## Features
+ - One-command installation of Minecraft with an input prompt for memory
+ - Uses common Java performance enhancements for your server
+ - Default nightly reboots (with player warnings!) for running on non-ecc hardware
+ - Setup automatically downloads and installs the latest vanilla Minecraft server
+ - One-command script to check for the latest version and automatically update, backing up the previous version
+ - Auto enables server run on machine start
+ - Runs your server in the background with screen
 
 ### start.sh
 
