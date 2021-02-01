@@ -3,44 +3,61 @@
 MC_HOME='/srv/minecraft-server'
 USER=$(whoami)
 mem='2G'
+screen_inst=$(command -v screen)
+systemctl_inst=$(command -v systemctl)
+java_inst=$(command -v java)
+wget_inst=$(command -v wget)
 
-echo "Starting install. Please note that sudo is required to configure the systemctl service and crontabs."
+echo -e 'Starting install.\n\nPlease note that sudo is required to configure the systemctl service and crontabs.\n'
+
+exit_early() {
+    echo -e "$1\n"
+    exit 1
+}
 
 # Check prerequisites
 echo -n "Checking prerequisites..."
-screen_inst=$(which screen)
-systemctl_inst=$(which systemctl)
-java_inst=$(which java)
-wget_inst=$(which wget)
 
-if [[ ! -x $screen_inst || ! -x $java_inst || ! -x $wget_inst]]; then
-	echo 'Please install screen, wget, and java before proceeding'
-    echo "Ex: sudo apt install screen wget openjdk-14-jre-headless"
-    exit 1
+if [ ! -x "$systemctl_inst" ]; then
+    exit_early 'systemctl not found. This script uses systemd to manage Minecraft server.'
 fi
 
-if [ ! -x $systemctl_inst ]; then
-    echo 'systemctl not found. This script uses systemd to manage Minecraft server.'
-    exit 1
+if [ -x "$screen_inst" ]; then
+    echo -e "\nFound screen"
+else
+    exit_early "\nMissing screen. Please install screen, wget, and java before proceeding. \nEx: sudo apt install screen wget openjdk-14-jre-headless"
 fi
+
+if [ -x "$java_inst" ]; then
+    echo -e "\nFound java"
+else
+    exit_early "\nMissing java. Please install screen, wget, and java before proceeding. \nEx: sudo apt install screen wget openjdk-14-jre-headless"
+fi
+
+if [ -x "$wget_inst" ]; then
+    echo -e "\nFound wget"
+else
+    exit_early "\nMissing wget. Please install screen, wget, and java before proceeding. \nEx: sudo apt install screen wget openjdk-14-jre-headless"
+fi
+
+
 echo " Done."
 
 # Setup
 echo -n "Creating directory..."
-mkdir $MC_HOME -p
+sudo mkdir $MC_HOME -p
 
 if [ ! -d $MC_HOME ]; then
-    echo "Could not create $MC_HOME directory - aborting."
-    exit 1
+    exit_early "Could not create $MC_HOME directory - aborting."
 fi
 echo " Done."
 
 # Download other scripts
 echo -n "Getting utility scripts..."
 cd $MC_HOME
-wget "https://raw.githubusercontent.com/00Duck/JavaMinecraftScripts/main/warn.sh"
-wget "https://raw.githubusercontent.com/00Duck/JavaMinecraftScripts/main/versioncheck.sh"
-echo " Done."
+wget -b "https://raw.githubusercontent.com/00Duck/JavaMinecraftScripts/main/warn.sh"
+wget -b "https://raw.githubusercontent.com/00Duck/JavaMinecraftScripts/main/versioncheck.sh"
+echo "Done."
 
 echo -n "Enter amount of memory for server to use. Ex: 256M, 2G, 4G. (Default 2G): "
 read inputMemory
@@ -103,7 +120,7 @@ echo "   Start Server: sudo systemctl start minecraft-server.service"
 echo "   Stop Server: sudo systemctl stop minecraft-server.service"
 echo "   Restart Server: sudo systemctl restart minecraft-server.service"
 echo "   Server status: systemctl status minecraft-server.service"
-echo "\nYour server is running on a separate screen. Type `screen -r` to resume the background screen session. Please note that, in order to do this, you must be logged in using screen with the same user that is running the service. To exit screen, type `ctrl + a` and then `ctrl + d`.\n"
+echo "\nYour server is running on a separate screen. Type `screen -r` to resume the background screen session. Please note that, in order to do this, you must be echoged in using screen with the same user that is running the service. To exit screen, type `ctrl + a` and then `ctrl + d`.\n"
 echo `Your server will shutdown nightly with a 10 minute warning every minute. 
 By default, the countdown starts at 2:20am and the server reboots at 2:30am. This 
 is configured to help prevent memory corruption issues when running the server on 

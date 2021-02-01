@@ -7,7 +7,7 @@ Quickly set up and start a Vanilla Minecraft server.
 # INSTALLATION
 
 ```bash
-/bin/bash -c $(curl -L https://raw.githubusercontent.com/00Duck/JavaMinecraftScripts/main/install.sh)
+/bin/bash -c "$(curl -L https://raw.githubusercontent.com/00Duck/JavaMinecraftScripts/main/install.sh)"
 ```
 
 ## Features
