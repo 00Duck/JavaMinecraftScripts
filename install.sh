@@ -15,36 +15,45 @@ exit_early() {
     exit 1
 }
 
+
 # Check prerequisites
-echo -n "Checking prerequisites..."
+echo "Checking prerequisites..."
+end_early=false
 
 if [ ! -x "$systemctl_inst" ]; then
     exit_early 'systemctl not found. This script uses systemd to manage Minecraft server.'
 fi
 
 if [ -x "$screen_inst" ]; then
-    echo -e "\nFound screen"
+    echo -e "   [ \033[32m\u2713\033[0m ] screen"
 else
-    exit_early "\nMissing screen. Please install screen, wget, and java before proceeding. \nEx: sudo apt install screen wget openjdk-14-jre-headless"
+    end_early=true
+    echo -e "   [ \033[31m\u03a7\033[0m ] screen"
 fi
 
 if [ -x "$java_inst" ]; then
-    echo -e "\nFound java"
+    echo -e "   [ \033[32m\u2713\033[0m ] java"
 else
-    exit_early "\nMissing java. Please install screen, wget, and java before proceeding. \nEx: sudo apt install screen wget openjdk-14-jre-headless"
+    end_early=true
+    echo -e "   [ \033[31m\u03a7\033[0m ] java"
 fi
 
 if [ -x "$wget_inst" ]; then
-    echo -e "\nFound wget"
+    echo -e "   [ \033[32m\u2713\033[0m ] wget"
 else
-    exit_early "\nMissing wget. Please install screen, wget, and java before proceeding. \nEx: sudo apt install screen wget openjdk-14-jre-headless"
+    end_early=true
+    echo -e "   [ \033[31m\u03a7\033[0m ] wget"
+fi
+
+if [ "$end_early" = true ]; then
+    exit_early "\nPlease install the missing requirements before proceeding. \nEx: sudo apt install screen wget openjdk-14-jre-headless"
 fi
 
 
-echo " Done."
+echo "Done."
 
 # Setup
-echo -n "Creating directory..."
+echo -n "Creating server directory..."
 sudo mkdir $MC_HOME -p
 
 if [ ! -d $MC_HOME ]; then
