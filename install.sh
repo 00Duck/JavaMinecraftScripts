@@ -123,18 +123,18 @@ sudo systemctl enable minecraft-server.service
 echo "Done."
 
 # Start Minecraft
-echo -e "\nStarting Minecraft Server."
+echo -e "\nYour Minecraft Server is now booting."
 sudo systemctl start minecraft-server.service
 
 # FINN
-echo -e "Your Vanilla Minecraft Server has finished installing.\n
+echo -e "\033[32mYou have successfully finished installing a Minecraft Server via QuickServMC.\033[0m\n
 Common commands:
    Start Server: sudo systemctl start minecraft-server.service
    Stop Server: sudo systemctl stop minecraft-server.service
    Restart Server: sudo systemctl restart minecraft-server.service
    Server status: systemctl status minecraft-server.service
 \nYour server is running on a separate screen. Type screen -r to resume the background screen session. Please note that, in order to do this, you must be logged in using screen with the same user that is running the service. To exit screen, type ctrl + a and then ctrl + d.
-\nYour server will shutdown nightly with a 10 minute warning every minute. 
-\nBy default, the countdown starts at 2:20am and the server reboots at 2:30am. This is configured to help prevent memory corruption issues when running the server on non-ecc, consumer hardware. You can modify this behavior by typing sudo su - to switch to root, followed by crontab -e.
-\nYou can automatically check for and download new versions of the server by running versioncheck.sh in $MC_HOME
+\nThe server will shutdown nightly with a 10 minute warning every minute. By default, the countdown starts at 2:20am and the server reboots at 2:30am. This is configured to help prevent memory corruption issues when running the server on non-ecc, consumer hardware. You can modify this behavior by typing sudo su - to switch to root, followed by crontab -e.
+\nYou can automatically check for and download new versions of the server by running versioncheck.sh in \033[32m$MC_HOME\033[0m
+\nThis output can be found in \033[32m$MC_Home/install_notes.txt\033[0m.
 \nEnjoy. :)" | tee ./install_notes.txt
