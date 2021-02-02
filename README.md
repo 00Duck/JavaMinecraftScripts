@@ -1,4 +1,4 @@
-# QuickMC
+# QuickServMC
 
 Quickly set up and start a Vanilla Minecraft server.
 
