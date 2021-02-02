@@ -82,7 +82,7 @@ fi
 echo ""
 
 # Install Service
-echo -n "Installing Service..."
+echo "Installing Service..."
 EXECUTE="/usr/bin/screen -dm -S minecraft-server bash -c 'java -Xms$mem -Xmx$mem -XX:+UseG1GC -XX:+ParallelRefProcEnabled -XX:MaxGCPauseMillis=200 -XX:+UnlockExperimentalVMOptions -XX:+DisableExplicitGC -XX:+AlwaysPreTouch -XX:G1NewSizePercent=30 -XX:G1MaxNewSizePercent=40 -XX:G1HeapRegionSize=8M -XX:G1ReservePercent=20 -XX:G1HeapWastePercent=5 -XX:G1MixedGCCountTarget=4 -XX:InitiatingHeapOccupancyPercent=15 -XX:G1MixedGCLiveThresholdPercent=90 -XX:G1RSetUpdatingPauseTimePercent=5 -XX:SurvivorRatio=32 -XX:+PerfDisableSharedMem -XX:MaxTenuringThreshold=1 -jar server.jar nogui'"
 SERVICE="
 [Unit]
@@ -101,11 +101,11 @@ WantedBy=multi-user.target
 "
 sudo dd of=/etc/systemd/system/multi-user.target.wants/minecraft-server.service <<< $SERVICE
 sudo chmod 777 /etc/systemd/system/multi-user.target.wants/minecraft-server.service
-echo " Done."
+echo "Done."
 
 # Install Minecraft
 echo -n "Installing Vanilla Minecraft Server..."
-server_page=$(curl -L https://www.minecraft.net/en-us/download/server)
+server_page=$(curl -sL https://www.minecraft.net/en-us/download/server)
 mcs_url=$(grep -o "https://.*server\.jar" <<<$server_page)
 wget -q $mcs_url
 sudo chmod 770 server.jar
@@ -135,7 +135,7 @@ Common commands:
    Stop Server: sudo systemctl stop minecraft-server.service
    Restart Server: sudo systemctl restart minecraft-server.service
    Server status: systemctl status minecraft-server.service
-\nYour server is running on a separate screen. Type `screen -r` to resume the background screen session. Please note that, in order to do this, you must be logged in using screen with the same user that is running the service. To exit screen, type `ctrl + a` and then `ctrl + d`.\n
+\nYour server is running on a separate screen. Type screen -r to resume the background screen session. Please note that, in order to do this, you must be logged in using screen with the same user that is running the service. To exit screen, type ctrl + a and then ctrl + d.\n
 \nYour server will shutdown nightly with a 10 minute warning every minute. 
 By default, the countdown starts at 2:20am and the server reboots at 2:30am. This 
 is configured to help prevent memory corruption issues when running the server on 
