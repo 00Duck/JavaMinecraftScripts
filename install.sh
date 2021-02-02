@@ -82,7 +82,7 @@ fi
 echo ""
 
 # Install Service
-echo "Installing Service..."
+echo -n "Installing Service..."
 EXECUTE="/usr/bin/screen -dm -S minecraft-server bash -c 'java -Xms$mem -Xmx$mem -XX:+UseG1GC -XX:+ParallelRefProcEnabled -XX:MaxGCPauseMillis=200 -XX:+UnlockExperimentalVMOptions -XX:+DisableExplicitGC -XX:+AlwaysPreTouch -XX:G1NewSizePercent=30 -XX:G1MaxNewSizePercent=40 -XX:G1HeapRegionSize=8M -XX:G1ReservePercent=20 -XX:G1HeapWastePercent=5 -XX:G1MixedGCCountTarget=4 -XX:InitiatingHeapOccupancyPercent=15 -XX:G1MixedGCLiveThresholdPercent=90 -XX:G1RSetUpdatingPauseTimePercent=5 -XX:SurvivorRatio=32 -XX:+PerfDisableSharedMem -XX:MaxTenuringThreshold=1 -jar server.jar nogui'"
 SERVICE="[Unit]
 Description=Vanilla Minecraft Server
@@ -97,9 +97,9 @@ Type=forking
 
 [Install]
 WantedBy=multi-user.target"
-sudo dd of=/lib/systemd/system/minecraft-server.service <<< $SERVICE
+sudo tee /lib/systemd/system/minecraft-server.service <<< $SERVICE
 sudo chmod 777 /lib/systemd/system/minecraft-server.service
-echo "Done."
+echo " Done."
 
 # Install Minecraft
 echo -n "Installing Vanilla Minecraft Server..."
@@ -110,17 +110,17 @@ sudo chmod 770 server.jar
 echo " Done."
 
 # Install Crontabs
-echo -n "Configuring root crontabs..."
+echo "Configuring root crontabs..."
 cronjob="20 2 * * * /bin/bash $MC_HOME/warn.sh"
 (sudo crontab -u root -l; echo "$cronjob" ) | sudo crontab -u root -
 cronjob="30 2 * * * systemctl stop minecraft-server && /usr/sbin/reboot"
 (sudo crontab -u root -l; echo "$cronjob" ) | sudo crontab -u root -
-echo " Done."
+echo "Done."
 
 # Enable Minecraft
-echo -n "Enabling Minecraft Server start on boot..."
+echo "Enabling Minecraft Server start on boot..."
 sudo systemctl enable minecraft-server.service
-echo " Done."
+echo "Done."
 
 # Start Minecraft
 echo "Starting Minecraft Server."
@@ -135,8 +135,6 @@ Common commands:
    Server status: systemctl status minecraft-server.service
 \nYour server is running on a separate screen. Type screen -r to resume the background screen session. Please note that, in order to do this, you must be logged in using screen with the same user that is running the service. To exit screen, type ctrl + a and then ctrl + d.\n
 \nYour server will shutdown nightly with a 10 minute warning every minute. 
-By default, the countdown starts at 2:20am and the server reboots at 2:30am. This 
-is configured to help prevent memory corruption issues when running the server on 
-non-ecc, consumer hardware. You can modify this behavior by typing sudo su - to switch to root, followed by crontab -e.
+\nBy default, the countdown starts at 2:20am and the server reboots at 2:30am. This is configured to help prevent memory corruption issues when running the server on non-ecc, consumer hardware. You can modify this behavior by typing sudo su - to switch to root, followed by crontab -e.
 \nYou can automatically check for and download new versions of the server by running versioncheck.sh in $MC_HOME
 \nEnjoy. :)"
