@@ -2,8 +2,6 @@
 
 Quickly set up and start a Vanilla Minecraft server.
 
-# THIS CODE IS A WORK IN PROGRESS! Check back later after everything has been tested.
-
 # INSTALLATION
 
 ```bash
@@ -13,11 +11,15 @@ Quickly set up and start a Vanilla Minecraft server.
 ## Features
  - One-command installation of Minecraft with an input prompt for memory
  - Uses common Java performance enhancements for your server
+ - Auto accepts EULA
  - Default nightly reboots (with player warnings!) for running on non-ecc hardware
- - Setup automatically downloads and installs the latest vanilla Minecraft server
+ - Setup downloads and installs the latest vanilla Minecraft server
  - One-command script to check for the latest version and automatically update, backing up the previous version
- - Auto enables server run on machine start
- - Runs your server in the background with screen
+ - Server starts on machine boot
+ - Runs in the background using screen
+
+## Tested on
+ - Ubuntu 20.10 Server
 
 
 <!-- ### start.sh

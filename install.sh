@@ -123,7 +123,7 @@ sudo systemctl enable minecraft-server.service
 echo "Done."
 
 # Start Minecraft
-echo "Starting Minecraft Server."
+echo -e "\nStarting Minecraft Server."
 sudo systemctl start minecraft-server.service
 
 # FINN
@@ -137,4 +137,4 @@ Common commands:
 \nYour server will shutdown nightly with a 10 minute warning every minute. 
 \nBy default, the countdown starts at 2:20am and the server reboots at 2:30am. This is configured to help prevent memory corruption issues when running the server on non-ecc, consumer hardware. You can modify this behavior by typing sudo su - to switch to root, followed by crontab -e.
 \nYou can automatically check for and download new versions of the server by running versioncheck.sh in $MC_HOME
-\nEnjoy. :)" > install_notes.txt
+\nEnjoy. :)" | tee ./install_notes.txt
