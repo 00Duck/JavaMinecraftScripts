@@ -14,7 +14,7 @@
 
 #download the latest page
 echo -n "Downloading latest server page..."
-server_page=$(curl -L https://www.minecraft.net/en-us/download/server)
+server_page=$(curl -sL https://www.minecraft.net/en-us/download/server)
 
 #get version and put in version file
 file_version=$(cat version)
@@ -34,7 +34,7 @@ if [ "$file_version" != "$new_version" ]; then
 	echo -n "Downloading latest version..."
 	#grab the download URL and download
 	url=$(grep -o "https://.*server\.jar" <<<$server_page)
-	wget $url
+	wget -q $url
     echo "Done"
 
 	#Update version file to latest version
