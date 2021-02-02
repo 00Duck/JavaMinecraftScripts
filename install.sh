@@ -67,7 +67,9 @@ echo -n "Getting utility scripts..."
 cd $MC_HOME
 wget -q "https://raw.githubusercontent.com/00Duck/JavaMinecraftScripts/main/warn.sh"
 wget -q "https://raw.githubusercontent.com/00Duck/JavaMinecraftScripts/main/versioncheck.sh"
-echo "Done."
+wget -q "https://raw.githubusercontent.com/00Duck/JavaMinecraftScripts/main/eula.txt"
+sudo chmod 770 warn.sh versioncheck.sh && sudo chmod 444 eula.txt
+echo " Done."
 
 echo -n "Enter amount of memory for server to use. Ex: 256M, 2G, 4G. (Default 2G): "
 read inputMemory
@@ -96,7 +98,9 @@ Type=forking
 
 [Install]
 WantedBy=multi-user.target
-" | sudo dd of=/etc/systemd/system/multi-user.target.wants/minecraft-server.service
+"
+sudo dd of=/etc/systemd/system/multi-user.target.wants/minecraft-server.service <<< $SERVICE
+sudo chmod 777 /etc/systemd/system/multi-user.target.wants/minecraft-server.service
 echo " Done."
 
 # Install Minecraft
@@ -104,6 +108,7 @@ echo -n "Installing Vanilla Minecraft Server..."
 server_page=$(curl -L https://www.minecraft.net/en-us/download/server)
 mcs_url=$(grep -o "https://.*server\.jar" <<<$server_page)
 wget -q $mcs_url
+sudo chmod 770 server.jar
 echo " Done."
 
 # Install Crontabs
