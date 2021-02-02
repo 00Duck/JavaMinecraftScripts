@@ -135,7 +135,7 @@ Common commands:
    Restart Server: sudo systemctl restart minecraft-server.service
    Server status: systemctl status minecraft-server.service
 \nYour server is running on a separate screen. Type \033[34mscreen -r\033[0m to resume the background screen session. Please note that, in order to do this, you must be logged in using screen with the same user that is running the service. To exit screen, type \033[34mctrl + a\033[0m and then \033[34mctrl + d\033[0m.
-\nThe server will shutdown nightly with a 10 minute warning every minute. By default, the countdown starts at 2:20am and the server reboots at 2:30am. This is configured to help prevent memory corruption issues when running the server on non-ecc, consumer hardware. You can modify this behavior by typing \033[34msudo su -\033[0m to switch to root, followed by \033[34mcrontab -e\033[0m.
+\nThe server will shutdown nightly with a 10 minute warning every minute. By default, the countdown starts at 2:20am and the server reboots at 2:30am. This is configured to help prevent memory corruption issues when running the server on non-ecc, consumer hardware. You can modify this behavior by typing \033[34msudo su -\033[0m to switch to root, followed by \033[34mcrontab -e \033[0m.
 \nYou can automatically check for and download new versions of the server by running versioncheck.sh in \033[34m$MC_HOME\033[0m
 \nThis output can be found in \033[34m$MC_HOME/install_notes.txt\033[0m.
 \nEnjoy. :)" | tee ./install_notes.txt
