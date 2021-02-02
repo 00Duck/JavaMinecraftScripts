@@ -64,8 +64,8 @@ echo " Done."
 # Download other scripts
 echo -n "Getting utility scripts..."
 cd $MC_HOME
-wget -b "https://raw.githubusercontent.com/00Duck/JavaMinecraftScripts/main/warn.sh"
-wget -b "https://raw.githubusercontent.com/00Duck/JavaMinecraftScripts/main/versioncheck.sh"
+wget -bq "https://raw.githubusercontent.com/00Duck/JavaMinecraftScripts/main/warn.sh"
+wget -bq "https://raw.githubusercontent.com/00Duck/JavaMinecraftScripts/main/versioncheck.sh"
 echo "Done."
 
 echo -n "Enter amount of memory for server to use. Ex: 256M, 2G, 4G. (Default 2G): "
@@ -81,7 +81,7 @@ echo ""
 # Install Service
 echo -n "Installing Service..."
 EXECUTE="/usr/bin/screen -dm -S minecraft-server bash -c 'java -Xms$mem -Xmx$mem -XX:+UseG1GC -XX:+ParallelRefProcEnabled -XX:MaxGCPauseMillis=200 -XX:+UnlockExperimentalVMOptions -XX:+DisableExplicitGC -XX:+AlwaysPreTouch -XX:G1NewSizePercent=30 -XX:G1MaxNewSizePercent=40 -XX:G1HeapRegionSize=8M -XX:G1ReservePercent=20 -XX:G1HeapWastePercent=5 -XX:G1MixedGCCountTarget=4 -XX:InitiatingHeapOccupancyPercent=15 -XX:G1MixedGCLiveThresholdPercent=90 -XX:G1RSetUpdatingPauseTimePercent=5 -XX:SurvivorRatio=32 -XX:+PerfDisableSharedMem -XX:MaxTenuringThreshold=1 -jar server.jar nogui'"
-echo `
+echo "
 [Unit]
 Description=Vanilla Minecraft Server
 
@@ -95,7 +95,7 @@ Type=forking
 
 [Install]
 WantedBy=multi-user.target
-` | sudo tee -a /etc/systemd/system/multi-user.target.wants/minecraft-server.service
+" | sudo tee -a /etc/systemd/system/multi-user.target.wants/minecraft-server.service
 echo " Done."
 
 # Install Minecraft
