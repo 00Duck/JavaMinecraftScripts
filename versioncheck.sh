@@ -13,8 +13,9 @@
 ##################################################################################
 
 #download the latest page
+agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:89.0) Gecko/2010010191 Firefox/89.0"
 echo -n "Downloading latest server page..."
-server_page=$(curl -sL https://www.minecraft.net/en-us/download/server)
+server_page=$(curl -A "$agent" -sL https://www.minecraft.net/en-us/download/server)
 
 #get version and put in version file
 file_version=$(cat version)
