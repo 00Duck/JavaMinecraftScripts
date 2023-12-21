@@ -20,9 +20,11 @@ Quickly set up and start a Vanilla Minecraft server.
 
 ## Tested on
  - Ubuntu 20.10 Server
+ - Ubuntu 22.04 LTS Server
+ - Debian 12 (Bookworm)
 
 
-<!-- ### start.sh
+### start.sh
 
 Starts a Minecraft server. Technically not necessary as this command can be added directly to a service, but I found it easier to work with. The service simply calls this file. Add it to the top level in your Minecraft server folder (assumed /srv/minecraft-server).
 
@@ -70,4 +72,4 @@ Add this file to /etc/systemd/system/. This is how you're going to start your Mi
 
 Either run `systemctl status mcserver`
 
-Or type `screen -r` to resume the background screen session. Please note that, in order to do this, you must be logged in using screen with the same user that is running the service. To exit screen, type `ctrl + a` and then `ctrl + d`. -->
+Or type `screen -r` to resume the background screen session. Please note that, in order to do this, you must be logged in using screen with the same user that is running the service. To exit screen, type `ctrl + a` and then `ctrl + d`.
