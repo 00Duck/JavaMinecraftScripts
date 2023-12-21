@@ -13,7 +13,7 @@
 ##################################################################################
 
 #download the latest page
-agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:89.0) Gecko/2010010191 Firefox/89.0"
+agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36"
 echo -n "Downloading latest server page..."
 server_page=$(curl -A "$agent" -sL https://www.minecraft.net/en-us/download/server)
 

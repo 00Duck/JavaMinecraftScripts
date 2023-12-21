@@ -103,7 +103,8 @@ echo "Done."
 
 # Install Minecraft
 echo -n "Installing Vanilla Minecraft Server..."
-server_page=$(curl -sL https://www.minecraft.net/en-us/download/server)
+agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36"
+server_page=$(curl -A "$agent" -sL https://www.minecraft.net/en-us/download/server)
 mcs_url=$(grep -o "https://.*server\.jar" <<<$server_page)
 wget -q $mcs_url
 sudo chmod 770 server.jar
