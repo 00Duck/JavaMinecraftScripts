@@ -7,6 +7,7 @@ screen_inst=$(command -v screen)
 systemctl_inst=$(command -v systemctl)
 java_inst=$(command -v java)
 wget_inst=$(command -v wget)
+jq_inst=$(command -v jq)
 
 echo -e 'Starting install.\n\nPlease note that sudo is required to configure the systemctl service and crontabs.\n'
 
@@ -36,6 +37,13 @@ if [ -x "$java_inst" ]; then
 else
     end_early=true
     echo -e "   [ \033[31m\u03a7\033[0m ] java"
+fi
+
+if [ -x "$jq_inst" ]; then
+    echo -e "   [ \033[32m\u2713\033[0m ] jq"
+else
+    end_early=true
+    echo -e "   [ \033[31m\u03a7\033[0m ] jq"
 fi
 
 if [ -x "$wget_inst" ]; then
